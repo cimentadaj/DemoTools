@@ -55,7 +55,25 @@
     <loc>https://timriffe.github.io/DemoTools//reference/age_abridge_force.html</loc>
   </url>
   <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/ages_asfr_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/ages_asfr_single.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/ages_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/ages_single.html</loc>
+  </url>
+  <url>
     <loc>https://timriffe.github.io/DemoTools//reference/agesmth1.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/asfr_mat_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/asfr_mat_single.html</loc>
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/avg_adj.html</loc>
@@ -328,7 +346,7 @@
     <loc>https://timriffe.github.io/DemoTools//reference/mig_estimate_rc.html</loc>
   </url>
   <url>
-    <loc>https://timriffe.github.io/DemoTools//reference/mig_resid_stock.html</loc>
+    <loc>https://timriffe.github.io/DemoTools//reference/mig_resid.html</loc>
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/names2age.html</loc>
@@ -362,6 +380,18 @@
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/popA_later.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/pop_f_mat_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/pop_f_mat_single.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/pop_m_mat_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/pop_m_mat_single.html</loc>
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/ratx.html</loc>
@@ -431,6 +461,24 @@
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/splitOscillate.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/sr_f_mat_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/sr_f_mat_single.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/sr_m_mat_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/sr_m_mat_single.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/srb_vec_five.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/srb_vec_single.html</loc>
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/surv10.html</loc>
