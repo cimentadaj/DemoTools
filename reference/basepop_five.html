@@ -192,7 +192,12 @@ names/codes.</p></td>
       <th>refDate</th>
       <td><p>The reference year for which the reported population pertain
 (these are the population counts in <code>Females_five</code> and
-<code>Males_five</code>). Can either be a decimal date, a <code>Date</code> class</p></td>
+<code>Males_five</code>). Can either be a decimal date, a <code>Date</code> class.
+If <code>nLxDatesIn</code> or <code>AsfrDatesIn</code> are not supplied and the
+corresponding <code>nLxFemale/Male</code>/<code>AsfrMat</code> is not supplied,
+<code>refDate</code> must be at a minimum 1962.5. This is because we can only
+fetch WPP data from 1955 onwards, and these minimum date is assumed to be
+7.5 years before <code>refDate</code>, meaning 1955.</p></td>
     </tr>
     <tr>
       <th>Age</th>
