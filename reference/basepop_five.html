@@ -175,6 +175,7 @@
   AsfrDatesIn <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>,
   SRB <span class='op'>=</span> <span class='cn'>NULL</span>,
+  SRBDatesIn <span class='op'>=</span> <span class='cn'>NULL</span>,
   radix <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
@@ -267,7 +268,15 @@ matrices and the <code>Asfr</code> matrix. By default, it's linearly interpolate
     <tr>
       <th>SRB</th>
       <td><p>A numeric. Sex ratio at birth (males / females). Default is set
-to 1.05</p></td>
+to 1.046. Only a maximum of three values permitted.</p></td>
+    </tr>
+    <tr>
+      <th>SRBDatesIn</th>
+      <td><p>A vector of numeric years (for example, 1986). Only a maximum
+number of three dates allowed. These are
+the dates which pertain to the values in <code>SRB</code>. If not provided,
+the function automatically determines three dates which are 7.5 years,
+2.5 and 0.5 years before <code>refDate</code>.</p></td>
     </tr>
     <tr>
       <th>radix</th>
