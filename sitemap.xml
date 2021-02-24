@@ -133,6 +133,9 @@
     <loc>https://timriffe.github.io/DemoTools//reference/dth5_zigzag.html</loc>
   </url>
   <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/e0_swe.html</loc>
+  </url>
+  <url>
     <loc>https://timriffe.github.io/DemoTools//reference/find_my_case.html</loc>
   </url>
   <url>
@@ -209,6 +212,18 @@
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/interp_lc_lim.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/interp_lc_lim_abk_m.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/interp_lc_lim_estimate.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/interp_lc_lim_group.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/interp_lc_lim_kt_min.html</loc>
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/interpolatePop.html</loc>
@@ -328,7 +343,13 @@
     <loc>https://timriffe.github.io/DemoTools//reference/lt_single_qx.html</loc>
   </url>
   <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/lt_smooth_ambiguous.html</loc>
+  </url>
+  <url>
     <loc>https://timriffe.github.io/DemoTools//reference/lthat.logquad.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/mA_swe.html</loc>
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/ma.html</loc>
@@ -347,6 +368,15 @@
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/mig_resid.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/mig_un_fam.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/mig_un_families.html</loc>
+  </url>
+  <url>
+    <loc>https://timriffe.github.io/DemoTools//reference/mig_un_params.html</loc>
   </url>
   <url>
     <loc>https://timriffe.github.io/DemoTools//reference/names2age.html</loc>
