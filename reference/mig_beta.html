@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>G. Feeney's method of smoothing counts in 5-year age groups. — smooth_age_5_zigzag • DemoTools</title>
+<title>Estimate intercensal migration by comparing census population, by age and
+sex, to the results of a RUP projection. — mig_beta • DemoTools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +47,14 @@
 
 
 
-<meta property="og:title" content="G. Feeney's method of smoothing counts in 5-year age groups. — smooth_age_5_zigzag" />
-<meta property="og:description" content="If age heaping is much worse on 0's than on 5's then even counts in 5-year age bins can preserve a sawtooth pattern. Most graduation techniques translate the zig-zag/sawtooth pattern to a wave pattern. It is not typically desired. This method redistributes counts 'from' every second 5-year age group in a specified range 'to' the adjacent age groups. How much to redistribute depends on a detection of roughness in the 5-year binned data, which follows the formulas recommended by Feeney. This method does not alter the total population count, counts in the youngest 10 ages, nor in old ages. 10-year age groups in the middle age range are not constrained." />
+<meta property="og:title" content="Estimate intercensal migration by comparing census population, by age and
+sex, to the results of a RUP projection. — mig_beta" />
+<meta property="og:description" content="This methods projects population from the first starting point to next census
+without migration and computes the &quot;Net Census Error&quot; (NCE) which is
+Census - Estimate by age from projection. It then distributes the NCE over
+the cohort parallelogram assuming uniform distribution assuming it is all
+migration. It finalizes by summing the estimate by age groups across the entire
+intercensal period to have a total migration during the entire period." />
 <meta property="og:image" content="https://timriffe.github.io/DemoTools/logo.png" />
 
 
@@ -153,65 +160,132 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>G. Feeney's method of smoothing counts in 5-year age groups.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/smooth_age_5.R'><code>R/smooth_age_5.R</code></a></small>
-    <div class="hidden name"><code>smooth_age_5_zigzag.Rd</code></div>
+    <h1>Estimate intercensal migration by comparing census population, by age and
+sex, to the results of a RUP projection.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/mig_beta.R'><code>R/mig_beta.R</code></a></small>
+    <div class="hidden name"><code>mig_beta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>If age heaping is much worse on 0's than on 5's then even counts in 5-year age bins can preserve a sawtooth pattern. Most graduation techniques translate the zig-zag/sawtooth pattern to a wave pattern. It is not typically desired. This method redistributes counts 'from' every second 5-year age group in a specified range 'to' the adjacent age groups. How much to redistribute depends on a detection of roughness in the 5-year binned data, which follows the formulas recommended by Feeney. This method does not alter the total population count, counts in the youngest 10 ages, nor in old ages. 10-year age groups in the middle age range are not constrained.</p>
+    <p>This methods projects population from the first starting point to next census
+without migration and computes the "Net Census Error" (NCE) which is
+Census - Estimate by age from projection. It then distributes the NCE over
+the cohort parallelogram assuming uniform distribution assuming it is all
+migration. It finalizes by summing the estimate by age groups across the entire
+intercensal period to have a total migration during the entire period.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth_age_5_zigzag</span><span class='op'>(</span>
-  <span class='va'>Value</span>,
-  <span class='va'>Age</span>,
-  OAG <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  ageMin <span class='op'>=</span> <span class='fl'>40</span>,
-  ageMax <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span><span class='op'>%%</span><span class='fl'>10</span> <span class='op'>-</span> <span class='fl'>5</span>
+    <pre class="usage"><span class='fu'>mig_beta</span><span class='op'>(</span>
+  <span class='va'>c1</span>,
+  <span class='va'>c2</span>,
+  <span class='va'>date1</span>,
+  <span class='va'>date2</span>,
+  age1 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>c1</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span>,
+  age2 <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>c2</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>1</span>,
+  dates_out <span class='op'>=</span> <span class='cn'>NULL</span>,
+  lxMat <span class='op'>=</span> <span class='cn'>NULL</span>,
+  age_lx <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dates_lx <span class='op'>=</span> <span class='cn'>NULL</span>,
+  births <span class='op'>=</span> <span class='cn'>NULL</span>,
+  years_births <span class='op'>=</span> <span class='cn'>NULL</span>,
+  country <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sex <span class='op'>=</span> <span class='st'>"both"</span>,
+  midyear <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>Value</th>
-      <td><p>numeric vector of (presumably) counts in 5-year age groups.</p></td>
+      <th>c1</th>
+      <td><p>numeric vector. The first (left) census in single age groups</p></td>
     </tr>
     <tr>
-      <th>Age</th>
-      <td><p>integer vector of age group lower bounds.</p></td>
+      <th>c2</th>
+      <td><p>numeric vector. The second (right) census in single age groups</p></td>
     </tr>
     <tr>
-      <th>OAG</th>
-      <td><p>logical. Whether or not the top age group is open. Default <code>TRUE</code>.</p></td>
+      <th>date1</th>
+      <td><p>reference date of c1`. Either a Date class object or an unambiguous character string in the format "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
-      <th>ageMin</th>
-      <td><p>integer. Lower age bound to adjust values.</p></td>
+      <th>date2</th>
+      <td><p>reference date of c2`. Either a Date class object or an unambiguous character string in the format "YYYY-MM-DD".</p></td>
     </tr>
     <tr>
-      <th>ageMax</th>
-      <td><p>integer. Upper age bound to adjust values.</p></td>
+      <th>age1</th>
+      <td><p>integer vector. single ages of <code>c1</code></p></td>
+    </tr>
+    <tr>
+      <th>age2</th>
+      <td><p>integer vector. single ages of <code>c2</code></p></td>
+    </tr>
+    <tr>
+      <th>dates_out</th>
+      <td><p>vector of desired output dates coercible to numeric using <code><a href='dec.date.html'>dec.date()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>lxMat</th>
+      <td><p>numeric matrix containing lifetable survivorship, <code>l(x)</code>. Each row is an age group and each column a time point. At least two intercensal time points needed.</p></td>
+    </tr>
+    <tr>
+      <th>age_lx</th>
+      <td><p>integer vector. Age classes in <code>lxMat</code></p></td>
+    </tr>
+    <tr>
+      <th>dates_lx</th>
+      <td><p>date, character, or numeric vector of the column time points for <code>lxMat</code>. If these are calendar-year estimates, then you can choose mid-year time points</p></td>
+    </tr>
+    <tr>
+      <th>births</th>
+      <td><p>integer vector. Raw birth counts for the corresponding (sub)-population, one value per each year of the intercensal period including both census years. The first and last years should include all births in the given year; don't discount them in advance.</p></td>
+    </tr>
+    <tr>
+      <th>years_births</th>
+      <td><p>numeric vector of calendar years of births.</p></td>
+    </tr>
+    <tr>
+      <th>country</th>
+      <td><p>text string. The country of the census</p></td>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <td><p>character string, either <code>"male"</code>, <code>"female"</code>, or <code>"both"</code></p></td>
+    </tr>
+    <tr>
+      <th>midyear</th>
+      <td><p>logical. <code>FALSE</code> means all Jan 1 dates between <code>date1</code> and <code>date2</code> are returned. <code>TRUE</code> means all July 1 intercensal dates are returned.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>logical. Shall we send informative messages to the console?</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>optional arguments passed to <code>lt_single_qx</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric vector of smoothed counts in 5-year age groups.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This function calls <code><a href='smooth_age_5_zigzag_inner.html'>smooth_age_5_zigzag_inner()</a></code>, but prepares data in a way consistent with other methods called by <code><a href='smooth_age_5.html'>smooth_age_5()</a></code>. It is probably preferable to call <code>zigzag()</code> from the top level, or else call this method from <code><a href='smooth_age_5.html'>smooth_age_5()</a></code> for more control over tail imputations.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Feeney, G. 2013 "Removing "Zigzag" from Age Data," http://demographer.com/white-papers/2013-removing-zigzag-from-age-data/</p>
+    <p>a numeric vector of the total migration in the intercensal period
+for each age. Ages are set as names of each migration estimate.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>Age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>90</span>,by<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># defaults</span>
-<span class='va'>zz</span> <span class='op'>&lt;-</span> <span class='fu'>smooth_age_5_zigzag</span><span class='op'>(</span><span class='va'>dth5_zigzag</span>, <span class='va'>Age</span>, OAG <span class='op'>=</span> <span class='cn'>TRUE</span>, ageMin <span class='op'>=</span> <span class='fl'>40</span>, ageMax <span class='op'>=</span> <span class='fl'>90</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>Age</span>, <span class='va'>dth5_zigzag</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>zz</span><span class='op'>)</span><span class='op'>)</span>,<span class='va'>zz</span><span class='op'>)</span>
+  <span class='fu'>mig_beta</span><span class='op'>(</span>
+  country <span class='op'>=</span> <span class='st'>"Russian Federation"</span>,
+  sex <span class='op'>=</span> <span class='st'>"male"</span>,
+  c1 <span class='op'>=</span> <span class='va'>pop1m_rus2002</span>,
+  c2 <span class='op'>=</span> <span class='va'>pop1m_rus2010</span>,
+  date1 <span class='op'>=</span> <span class='st'>"2002-10-16"</span>,
+  date2 <span class='op'>=</span> <span class='st'>"2010-10-25"</span>,
+  age1 <span class='op'>=</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>100</span>,
+  births <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>719511L</span>, <span class='fl'>760934L</span>, <span class='fl'>772973L</span>, <span class='fl'>749554L</span>, <span class='fl'>760831L</span>, <span class='fl'>828772L</span>, <span class='fl'>880543L</span>, <span class='fl'>905380L</span>, <span class='fl'>919639L</span><span class='op'>)</span>
+<span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
