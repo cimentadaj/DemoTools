@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DemoTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.32</span>
       </span>
     </div>
 
@@ -175,7 +175,7 @@
   dates_lx <span class='op'>=</span> <span class='cn'>NULL</span>,
   births <span class='op'>=</span> <span class='cn'>NULL</span>,
   years_births <span class='op'>=</span> <span class='cn'>NULL</span>,
-  country <span class='op'>=</span> <span class='cn'>NULL</span>,
+  location <span class='op'>=</span> <span class='cn'>NULL</span>,
   sex <span class='op'>=</span> <span class='st'>"both"</span>,
   midyear <span class='op'>=</span> <span class='cn'>FALSE</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -234,8 +234,8 @@
       <td><p>numeric vector of calendar years of births.</p></td>
     </tr>
     <tr>
-      <th>country</th>
-      <td><p>text string. The country of the census</p></td>
+      <th>location</th>
+      <td><p>UN Pop Division <code>LocName</code> or <code>LocID</code></p></td>
     </tr>
     <tr>
       <th>sex</th>
@@ -263,7 +263,7 @@
     <pre class="examples"><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='fu'>interp_coh</span><span class='op'>(</span>
-country <span class='op'>=</span> <span class='st'>"Russian Federation"</span>,
+location <span class='op'>=</span> <span class='st'>"Russian Federation"</span>,
 sex <span class='op'>=</span> <span class='st'>"male"</span>,
 c1 <span class='op'>=</span> <span class='va'>pop1m_rus2002</span>,
 c2 <span class='op'>=</span> <span class='va'>pop1m_rus2010</span>,

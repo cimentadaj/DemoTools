@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sex ratio at birth between 1999 and 2019 — srb_vec_single • DemoTools</title>
+<title>extract births from wpp2019 — fetch_wpp_births • DemoTools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Sex ratio at birth between 1999 and 2019 — srb_vec_single" />
-<meta property="og:description" content="Sex ratio at birth between 1999 and 2019 for Sweden" />
+<meta property="og:title" content="extract births from wpp2019 — fetch_wpp_births" />
+<meta property="og:description" content="extract births from wpp2019" />
 <meta property="og:image" content="https://timriffe.github.io/DemoTools/logo.png" />
 
 
@@ -153,24 +153,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sex ratio at birth between 1999 and 2019</h1>
-    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>srb_vec_single.Rd</code></div>
+    <h1>extract births from wpp2019</h1>
+    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/utils_downloads.R'><code>R/utils_downloads.R</code></a></small>
+    <div class="hidden name"><code>fetch_wpp_births.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Sex ratio at birth between 1999 and 2019 for Sweden</p>
+    <p>extract births from wpp2019</p>
     </div>
 
-    <pre class="usage"><span class='va'>srb_vec_single</span></pre>
+    <pre class="usage"><span class='fu'>fetch_wpp_births</span><span class='op'>(</span><span class='va'>births</span>, <span class='va'>yrs_births</span>, <span class='va'>location</span>, <span class='va'>sex</span>, <span class='va'>verbose</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>births</th>
+      <td><p><code>NULL</code> or else a vector of births to simply return</p></td>
+    </tr>
+    <tr>
+      <th>yrs_births</th>
+      <td><p>vector of years to extract</p></td>
+    </tr>
+    <tr>
+      <th>location</th>
+      <td><p>UN Pop Dov <code>LocName</code> or <code>LocID</code></p></td>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <td><p><code>"male"</code>, <code>"female"</code>, or <code>"both"</code></p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>logical, shall we send optional messages to the console?</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of length 20</p>
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p>Migration residual PAS spreadhseet</p>
+    <p>vector of births</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

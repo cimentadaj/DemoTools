@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DemoTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.32</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@
     <p>This is exactly the function <code>pclm()</code> from the <code>ungroup</code> package, except with arguments using standard <code>DemoTools</code> argument names.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>graduate_pclm</span><span class='op'>(</span><span class='va'>Value</span>, <span class='va'>Age</span>, OAnew <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>graduate_pclm</span><span class='op'>(</span><span class='va'>Value</span>, <span class='va'>Age</span>, <span class='va'>AgeInt</span>, OAnew <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span>, OAG <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,8 +176,16 @@
       <td><p>integer vector, lower bounds of age groups</p></td>
     </tr>
     <tr>
+      <th>AgeInt</th>
+      <td><p>integer vector, age interval widths</p></td>
+    </tr>
+    <tr>
       <th>OAnew</th>
       <td><p>integer, optional new open age, higher than <code><a href='https://rdrr.io/r/base/Extremes.html'>max(Age)</a></code>. See details.</p></td>
+    </tr>
+    <tr>
+      <th>OAG</th>
+      <td><p>logical, default = <code>TRUE</code> is the final age group open?</p></td>
     </tr>
     <tr>
       <th>...</th>

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DemoTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.32</span>
       </span>
     </div>
 
@@ -162,13 +162,20 @@
     <p>This is a wrapper around the other lifetable utilities. We start with either <code>nMx</code>, <code>nqx</code>, or <code>lx</code> in single or abridged ages, and returns a full lifetable in either single or abridged ages. All optional arguments of <code><a href='lt_abridged.html'>lt_abridged()</a></code> or <code>lt_single*()</code> can be passed in, for instance the <code>nax</code> assumptions or the extrapolation arguments.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lt_ambiguous</span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, type <span class='op'>=</span> <span class='st'>"m"</span>, Age <span class='op'>=</span> <span class='cn'>NULL</span>, Sex <span class='op'>=</span> <span class='cn'>NULL</span>, Single <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>lt_ambiguous</span><span class='op'>(</span>
+  nMx_or_nqx_or_lx <span class='op'>=</span> <span class='cn'>NULL</span>,
+  type <span class='op'>=</span> <span class='st'>"m"</span>,
+  Age <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Sex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Single <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
+      <th>nMx_or_nqx_or_lx</th>
       <td><p>numeric vector of either <code>nMx</code>, <code>nqx</code>, or <code>lx</code></p></td>
     </tr>
     <tr>

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DemoTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.21</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.32</span>
       </span>
     </div>
 
@@ -154,7 +154,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Extract Lx estimates from WPP2019</h1>
-    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/basepop.R'><code>R/basepop.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/utils_downloads.R'><code>R/utils_downloads.R</code></a></small>
     <div class="hidden name"><code>downloadnLx.Rd</code></div>
     </div>
 
@@ -162,7 +162,7 @@
     <p>We use the <code>FetchLifeTableWpp2019</code> function of the <code>fertestr</code> to extract <code>Lx</code> from <code>wpp2019</code>, interpolated to an exact date.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>downloadnLx</span><span class='op'>(</span><span class='va'>nLx</span>, <span class='va'>country</span>, <span class='va'>gender</span>, <span class='va'>nLxDatesIn</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>downloadnLx</span><span class='op'>(</span><span class='va'>nLx</span>, <span class='va'>location</span>, <span class='va'>gender</span>, <span class='va'>nLxDatesIn</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,8 +172,8 @@
       <td><p>either <code>NULL</code> or a numeric vector of lifetable exposure. If it's the second then we just pass it back.</p></td>
     </tr>
     <tr>
-      <th>country</th>
-      <td><p>character country name available UN Pop Div <code>LocName</code> set</p></td>
+      <th>location</th>
+      <td><p>UN Pop Div <code>LocName</code> or <code>LocID</code></p></td>
     </tr>
     <tr>
       <th>gender</th>
