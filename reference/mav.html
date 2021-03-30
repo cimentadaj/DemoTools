@@ -162,7 +162,9 @@
     <p>This arithmetic smoothing technique aims to eliminate irregularities of the population pyramid by averaging values in a moving window of user-defined width.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mav</span><span class='op'>(</span><span class='va'>Value</span>, <span class='va'>Age</span>, n <span class='op'>=</span> <span class='fl'>3</span>, OAG <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mav</span><span class='op'>(</span><span class='va'>Value</span>, <span class='va'>Age</span>, n <span class='op'>=</span> <span class='fl'>3</span>, OAG <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='fu'>mav_tails</span><span class='op'>(</span><span class='va'>Value</span>, <span class='va'>Age</span>, n <span class='op'>=</span> <span class='fl'>3</span>, OAG <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,10 +189,16 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Vector with the smoothed demographic counts.</p>
+    <p>Vector with the smoothed demographic counts. For <code>mav</code> both
+tails should be missing while for <code>mav_tails</code> all values should be
+non-NA.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The moving window is applied symmetrically. Data endpoints are imputed with <code>NA</code>s in output: the is nothing under 0 or over the highest closed age group to average with. The open age group is imputed with <code>NA</code> prior to calculations, since it cannot be averaged into the next lowest group. For example, for <code>n=3</code>, age 0 will be <code>NA</code>, as will the open age group and next lowest age. Age intervals are assumed uniform. This function could be used with either single or 5-year age groups.</p>
+    <p><code>mav</code>:</p>
+<p>The moving window is applied symmetrically. Data endpoints are imputed with <code>NA</code>s in output: the is nothing under 0 or over the highest closed age group to average with. The open age group is imputed with <code>NA</code> prior to calculations, since it cannot be averaged into the next lowest group. For example, for <code>n=3</code>, age 0 will be <code>NA</code>, as will the open age group and next lowest age. Age intervals are assumed uniform. This function could be used with either single or 5-year age groups.</p>
+<p><code>mav_tails</code>:</p>
+<p>It returns the same result as <code>mav</code> except for both tails where
+<code>mav_tails</code> does a cascading smooth for both tails.</p>
 <p>Ages may be single or grouped, but all age intervals are assumed equal.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
