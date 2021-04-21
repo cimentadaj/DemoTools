@@ -54,7 +54,8 @@ without migration and computes the &quot;Net Census Error&quot; (NCE) which is
 Census - Estimate by age from projection. It then distributes the NCE over
 the cohort parallelogram assuming uniform distribution assuming it is all
 migration. It finalizes by summing the estimate by age groups across the entire
-intercensal period to have a total migration during the entire period." />
+intercensal period to have a total migration during the entire period.
+Alternatively, a child adjustment and an old age adjustment can be applied." />
 <meta property="og:image" content="https://timriffe.github.io/DemoTools/logo.png" />
 
 
@@ -87,7 +88,7 @@ intercensal period to have a total migration during the entire period." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DemoTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.39</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.46</span>
       </span>
     </div>
 
@@ -172,7 +173,8 @@ without migration and computes the "Net Census Error" (NCE) which is
 Census - Estimate by age from projection. It then distributes the NCE over
 the cohort parallelogram assuming uniform distribution assuming it is all
 migration. It finalizes by summing the estimate by age groups across the entire
-intercensal period to have a total migration during the entire period.</p>
+intercensal period to have a total migration during the entire period.
+Alternatively, a child adjustment and an old age adjustment can be applied.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mig_beta</span><span class='op'>(</span>
@@ -192,6 +194,11 @@ intercensal period to have a total migration during the entire period.</p>
   sex <span class='op'>=</span> <span class='st'>"both"</span>,
   midyear <span class='op'>=</span> <span class='cn'>FALSE</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  child_adjust <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"cwr"</span>, <span class='st'>"constant"</span><span class='op'>)</span>,
+  childage_max <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cwr_factor <span class='op'>=</span> <span class='fl'>0.3</span>,
+  oldage_adjust <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"beers"</span>, <span class='st'>"mav"</span><span class='op'>)</span>,
+  oldage_min <span class='op'>=</span> <span class='fl'>65</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -263,6 +270,42 @@ intercensal period to have a total migration during the entire period.</p>
       <td><p>logical. Shall we send informative messages to the console?</p></td>
     </tr>
     <tr>
+      <th>child_adjust</th>
+      <td><p>The method with which to adjust the youngest age groups.
+If <code>"none"</code>, no adjustment is applied (default). If
+child-woman ratio (<code>"cwr"</code>) is chosen, the first cohorts reflecting the
+difference between <code>date2 - date1</code> are adjusted (plus age 0). If
+child constant ratio (<code>"constant"</code>) is chosen, the first 15 age groups
+are adjusted.</p></td>
+    </tr>
+    <tr>
+      <th>childage_max</th>
+      <td><p>The maximum age from which to apply <code>child_adjust</code>.
+By default, set to <code>NULL</code>, which gets translated into all the cohorts
+between <code>date2</code> and <code>date1</code>. If <code>date2</code> is 2010 and
+<code>date1</code> is 2002, the first 8 cohorts are adjusted. Otherwise, the user
+can supply an integer.</p></td>
+    </tr>
+    <tr>
+      <th>cwr_factor</th>
+      <td><p>A numeric between 0 and 1 to which adjust the CWR method
+for the young ages from <code>child_adjust</code>. <strong>This is only used
+when <code>child_adjust</code> is <code>"cwr"</code></strong>.</p></td>
+    </tr>
+    <tr>
+      <th>oldage_adjust</th>
+      <td><p>The type of adjustment to apply to ages at and above
+<code>oldage_min</code>. <code>'beers'</code> applies a beers graduation method
+while <code>'mav'</code> applies a moving average with cascading on the tails.
+For more information see <code><a href='mav.html'>?mav</a></code> and <code>?graduation_beers</code>.</p></td>
+    </tr>
+    <tr>
+      <th>oldage_min</th>
+      <td><p>The minimum age from which to apply <code>oldage_adjust</code>.
+By default, set to 65, so any adjustment from <code>oldage_adjust</code> will be
+applied for 65+.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>optional arguments passed to <code>lt_single_qx</code></p></td>
     </tr>
@@ -276,7 +319,8 @@ for each age. Ages are set as names of each migration estimate.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>mig_beta</span><span class='op'>(</span>
+
+<span class='fu'>mig_beta</span><span class='op'>(</span>
   location <span class='op'>=</span> <span class='st'>"Russian Federation"</span>,
   sex <span class='op'>=</span> <span class='st'>"male"</span>,
   c1 <span class='op'>=</span> <span class='va'>pop1m_rus2002</span>,

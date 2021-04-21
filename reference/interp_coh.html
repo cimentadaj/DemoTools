@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>component-free intercensal cohort interpolation — interp_coh • DemoTools</title>
+<title>Cohort component intercensal interpolation — interp_coh • DemoTools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="component-free intercensal cohort interpolation — interp_coh" />
-<meta property="og:description" content="Cohorts between two censuses are interpolated flexibly using linear, exponential, or power rules. The lower and upper intercensal triangles are filled using within-age interpolation. This function is experimental and still in development." />
+<meta property="og:title" content="Cohort component intercensal interpolation — interp_coh" />
+<meta property="og:description" content="Cohorts between two censuses are interpolated using a cohort component approach." />
 <meta property="og:image" content="https://timriffe.github.io/DemoTools/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DemoTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.39</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.46</span>
       </span>
     </div>
 
@@ -153,13 +153,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>component-free intercensal cohort interpolation</h1>
+    <h1>Cohort component intercensal interpolation</h1>
     <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/interp_coh.R'><code>R/interp_coh.R</code></a></small>
     <div class="hidden name"><code>interp_coh.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Cohorts between two censuses are interpolated flexibly using linear, exponential, or power rules. The lower and upper intercensal triangles are filled using within-age interpolation. This function is experimental and still in development.</p>
+    <p>Cohorts between two censuses are interpolated using a cohort component approach.</p>
     </div>
 
     <pre class="usage"><span class='fu'>interp_coh</span><span class='op'>(</span>
@@ -255,6 +255,9 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The basic approach is to i) align the censuses to single-year cohorts by blending adjacent ages assuming that the birthdays in each age group are uniformly distributed through the year ii) decrement the first census forward within cohorts using period-cohort survival probabilities calculated from (supplied or downloaded) <code>l(x)</code> values, iii) redistribute the residual at the time of the second census uniformly over time within cohorts. These steps are always done on Jan 1 reference dates. If <code>midyear = TRUE</code>, then we do within-age band arithmetic interpolation to July 1 reference dates.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>interp</p></div>

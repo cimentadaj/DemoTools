@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DemoTools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.39</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">01.13.46</span>
       </span>
     </div>
 
@@ -185,8 +185,8 @@
     </tr>
     <tr>
       <th>tails</th>
-      <td><p>logical. If set to TRUE, a smoothing is applied on both tails
-such that all values are non-NA. If FALSE (default), tails are set to NA
+      <td><p>logical. If set to <code>TRUE</code>, smaller-n moving averages are applied on both tails
+such that all values are non-NA. If <code>FALSE</code> (default), tails are set to NA
 due to the lag of moving averages.</p></td>
     </tr>
     </table>
@@ -196,18 +196,13 @@ due to the lag of moving averages.</p></td>
     <p>Vector with the smoothed demographic counts.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The moving window is applied symmetrically. Data endpoints are imputed with <code>NA</code>s in output: the is nothing under 0 or over the highest closed age group to average with. The open age group is imputed with <code>NA</code> prior to calculations, since it cannot be averaged into the next lowest group. For example, for <code>n=3</code>, age 0 will be <code>NA</code>, as will the open age group and next lowest age. Age intervals are assumed uniform. This function could be used with either single or 5-year age groups.</p>
-<p>If <code>tails</code> is set to <code>TRUE</code>, it returns the same result as
-<code>mav</code> except for both tails where a cascading smoothing is applied.</p>
-<p>Ages may be single or grouped, but all age intervals are assumed equal.</p>
+    <p>The moving window is applied symmetrically. By default (<code>tails = FALSE</code>) data endpoints are imputed with <code>NA</code>s in output: the is nothing under 0 or over the highest closed age group to average with. The open age group is not used in averaging, and it is returned as-is. Age intervals are assumed uniform. This function could be used with either single or 5-year age groups.</p>
+<p>If <code>tails</code> is set to <code>TRUE</code>, then tails have been imputed using moving averages with successively smaller values of <code>n</code>, the cascade method.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Roger G, Waltisperger D, Corbille-Guitton C (1981).
 <em>Les structures par sexe et âge en Afrique</em>.
 GDA, Paris, France.</p>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Juan Galeano</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>Pop</span>  <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>303583</span>,<span class='fl'>390782</span>,<span class='fl'>523903</span>,<span class='fl'>458546</span>,<span class='fl'>517996</span>,<span class='fl'>400630</span>,<span class='fl'>485606</span>,<span class='fl'>325423</span>,<span class='fl'>471481</span>,<span class='fl'>189710</span>,
@@ -241,9 +236,15 @@ GDA, Paris, France.</p>
 #&gt;         63         64         65         66         67         68         69 
 #&gt;  10421.000  35938.667  36190.000  35550.667   8359.000   6344.333         NA 
 #&gt;         70 
-#&gt;         NA </div><div class='input'>
+#&gt; 160609.000 </div><div class='input'>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>nwindows</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>11</span>, by <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>,<span class='va'>mav</span>, Value <span class='op'>=</span> <span class='va'>Pop</span>, Age <span class='op'>=</span> <span class='va'>Age</span><span class='op'>)</span>
+ <span class='va'>odds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>11</span>, by <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>nwindows</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>odds</span>,
+                   <span class='va'>mav</span>, 
+                   Value <span class='op'>=</span> <span class='va'>Pop</span>, 
+                   Age <span class='op'>=</span> <span class='va'>Age</span>,
+                   OAG <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                   tails <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>cols</span>     <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>gray</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>.8</span>, <span class='fl'>0</span>, length <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>lwds</span>     <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>1</span>, length <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>Age</span>,<span class='va'>Pop</span>, col <span class='op'>=</span> <span class='st'>"red"</span>, xlab <span class='op'>=</span> <span class='st'>"Age"</span>, ylab <span class='op'>=</span> <span class='st'>"The counts"</span>, pch<span class='op'>=</span><span class='fl'>16</span>,
@@ -276,6 +277,26 @@ GDA, Paris, France.</p>
 #&gt;  51601.00  17558.33  12818.67 116461.00 113761.00 115568.00  10834.67  10421.00 
 #&gt;        64        65        66        67        68        69        70 
 #&gt;  35938.67  36190.00  35550.67   8359.00   6979.25   8884.00 160609.00 </div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># Compare</span>
+<span class='va'>nwindows_tails</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>odds</span>,
+                         <span class='va'>mav</span>, 
+                         Value <span class='op'>=</span> <span class='va'>Pop</span>, 
+                         Age <span class='op'>=</span> <span class='va'>Age</span>, 
+                         OAG <span class='op'>=</span> <span class='cn'>TRUE</span>, 
+                         tails <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>nwindows</span><span class='op'>)</span>        <span class='op'>&lt;-</span> <span class='va'>odds</span>
+<span class='fu'>colnamaes</span><span class='op'>(</span><span class='va'>nwindows_tails</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>odds</span>
+
+<span class='co'># NA triangles are completed with</span>
+<span class='co'># successively smaller ns.</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>nwindows</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>nwindows_tails</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>nwindows</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>nwindows_tails</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

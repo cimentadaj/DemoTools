@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>G. Feeney's method of smoothing counts in 5-year age groups. — smooth_age_5_zigzag • DemoTools</title>
+<title>Extract ASFR estimates from WPP2019. Mainly an util function for other ones. — downloadAsfr • DemoTools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="G. Feeney's method of smoothing counts in 5-year age groups. — smooth_age_5_zigzag" />
-<meta property="og:description" content="If age heaping is much worse on 0's than on 5's then even counts in 5-year age bins can preserve a sawtooth pattern. Most graduation techniques translate the zig-zag/sawtooth pattern to a wave pattern. It is not typically desired. This method redistributes counts 'from' every second 5-year age group in a specified range 'to' the adjacent age groups. How much to redistribute depends on a detection of roughness in the 5-year binned data, which follows the formulas recommended by Feeney. This method does not alter the total population count, counts in the youngest 10 ages, nor in old ages. 10-year age groups in the middle age range are not constrained." />
+<meta property="og:title" content="Extract ASFR estimates from WPP2019. Mainly an util function for other ones. — downloadAsfr" />
+<meta property="og:description" content="We extract ASFRx from wpp2019, interpolated to exact dates. Different methods availables.
+A vector of countries can handle, but with an unique sex. Row names are not indicative of countries." />
 <meta property="og:image" content="https://timriffe.github.io/DemoTools/logo.png" />
 
 
@@ -153,65 +154,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>G. Feeney's method of smoothing counts in 5-year age groups.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/smooth_age_5.R'><code>R/smooth_age_5.R</code></a></small>
-    <div class="hidden name"><code>smooth_age_5_zigzag.Rd</code></div>
+    <h1>Extract ASFR estimates from WPP2019. Mainly an util function for other ones.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/timriffe/DemoTools/blob/master/R/utils_downloads.R'><code>R/utils_downloads.R</code></a></small>
+    <div class="hidden name"><code>downloadAsfr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>If age heaping is much worse on 0's than on 5's then even counts in 5-year age bins can preserve a sawtooth pattern. Most graduation techniques translate the zig-zag/sawtooth pattern to a wave pattern. It is not typically desired. This method redistributes counts 'from' every second 5-year age group in a specified range 'to' the adjacent age groups. How much to redistribute depends on a detection of roughness in the 5-year binned data, which follows the formulas recommended by Feeney. This method does not alter the total population count, counts in the youngest 10 ages, nor in old ages. 10-year age groups in the middle age range are not constrained.</p>
+    <p>We extract <code>ASFRx</code> from <code>wpp2019</code>, interpolated to exact dates. Different methods availables.
+A vector of countries can handle, but with an unique sex. Row names are not indicative of countries.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth_age_5_zigzag</span><span class='op'>(</span>
-  <span class='va'>Value</span>,
-  <span class='va'>Age</span>,
-  OAG <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  ageMin <span class='op'>=</span> <span class='fl'>40</span>,
-  ageMax <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span><span class='op'>%%</span><span class='fl'>10</span> <span class='op'>-</span> <span class='fl'>5</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>downloadAsfr</span><span class='op'>(</span><span class='va'>Asfrmat</span>, location <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>AsfrDatesIn</span>, method <span class='op'>=</span> <span class='st'>"linear"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>Value</th>
-      <td><p>numeric vector of (presumably) counts in 5-year age groups.</p></td>
+      <th>Asfrmat</th>
+      <td><p>numeric.</p></td>
     </tr>
     <tr>
-      <th>Age</th>
-      <td><p>integer vector of age group lower bounds.</p></td>
+      <th>location</th>
+      <td><p>vector. UN Pop Div <code>LocName</code> or <code>LocID</code></p></td>
     </tr>
     <tr>
-      <th>OAG</th>
-      <td><p>logical. Whether or not the top age group is open. Default <code>TRUE</code>.</p></td>
+      <th>AsfrDatesIn</th>
+      <td><p>numeric. Vector of decimal dates.</p></td>
     </tr>
     <tr>
-      <th>ageMin</th>
-      <td><p>integer. Lower age bound to adjust values.</p></td>
-    </tr>
-    <tr>
-      <th>ageMax</th>
-      <td><p>integer. Upper age bound to adjust values.</p></td>
+      <th>method</th>
+      <td><p>character. Could be <code>"linear"</code>, <code>"exponential"</code>, or <code>"power"</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric vector of smoothed counts in 5-year age groups.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This function calls <code><a href='smooth_age_5_zigzag_inner.html'>smooth_age_5_zigzag_inner()</a></code>, but prepares data in a way consistent with other methods called by <code><a href='smooth_age_5.html'>smooth_age_5()</a></code>. It is probably preferable to call <code>zigzag()</code> from the top level, or else call this method from <code><a href='smooth_age_5.html'>smooth_age_5()</a></code> for more control over tail imputations.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Feeney, G. 2013 "Removing "Zigzag" from Age Data," http://demographer.com/white-papers/2013-removing-zigzag-from-age-data/</p>
+    <p>numeric matrix interpolated asfr</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>Age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>90</span>,by<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># defaults</span>
-<span class='va'>zz</span> <span class='op'>&lt;-</span> <span class='fu'>smooth_age_5_zigzag</span><span class='op'>(</span><span class='va'>dth5_zigzag</span>, <span class='va'>Age</span>, OAG <span class='op'>=</span> <span class='cn'>TRUE</span>, ageMin <span class='op'>=</span> <span class='fl'>40</span>, ageMax <span class='op'>=</span> <span class='fl'>90</span><span class='op'>)</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>Age</span>, <span class='va'>dth5_zigzag</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>zz</span><span class='op'>)</span><span class='op'>)</span>,<span class='va'>zz</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Total fertility ratio calculated from ASFRx downloaded from WPP19. </span>
+<span class='co'># See `downloadnLx` for analogous examples on multiple countries or using codes instead of names. </span>
+<span class='va'>ASFR_Arg</span> <span class='op'>&lt;-</span> <span class='fu'>downloadAsfr</span><span class='op'>(</span>Asfrmat <span class='op'>=</span> <span class='cn'>NULL</span>, location <span class='op'>=</span> <span class='st'>"Argentina"</span>, AsfrDatesIn <span class='op'>=</span> <span class='fl'>1950</span><span class='op'>:</span><span class='fl'>2025</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Downloading ASFR data for Argentina, years 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025</div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fl'>1950</span><span class='op'>:</span><span class='fl'>2025</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='va'>ASFR_Arg</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>5</span>, xlab <span class='op'>=</span> <span class='st'>"Year"</span>, ylab<span class='op'>=</span><span class='st'>"TFR"</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.5</span>,<span class='fl'>4</span><span class='op'>)</span>, t<span class='op'>=</span><span class='st'>"l"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
